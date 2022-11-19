@@ -14,7 +14,7 @@ public class HelloController {
 
 	@GetMapping("/")
 	public String index() {
-		return "Greetings from Spring Boot!";
+		return "Hurensohn!";
 	}
 
 	@GetMapping("userID")
@@ -38,15 +38,16 @@ public class HelloController {
 		return ResponseEntity.ok("you did it!");
 	}
 
-	@PostMapping("add")
-	public ResponseEntity<String> createComment(@RequestBody String comment) {
-		comments.add(comment);
+	@RequestMapping(value = "/users/{id}")
+	public ResponseEntity<String> createComment(@PathVariable String id) {
+		comments.add(id);
 		return ResponseEntity.ok("succesful");
 	}
 
 	public class Tuple<X, Y> {
 		public final X x;
 		public final Y y;
+
 		public Tuple(X x, Y y) {
 			this.x = x;
 			this.y = y;
