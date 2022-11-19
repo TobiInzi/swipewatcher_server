@@ -10,7 +10,7 @@ public class HelloController {
 
 	HashMap<Tuple<Integer, Integer>, List<String>> pairs = new HashMap<Tuple<Integer, Integer>, List<String>>();
 	private Integer myInt = 294221;
-	private List<String> comments = new LinkedList<>();
+	private HashSet<String> likedList = new HashSet<>();
 
 	@GetMapping("/")
 	public String index() {
@@ -25,24 +25,26 @@ public class HelloController {
 		return ResponseEntity.ok(myInt);
 	}
 
-	@GetMapping("comments")
-	public ResponseEntity<List<String>> getComments() {
-		return ResponseEntity.ok(comments);
+	@GetMapping("showLiked")
+	public ResponseEntity<HashSet> getComments() {
+		return ResponseEntity.ok(likedList);
 	}
 
-	@GetMapping("create")
-	public ResponseEntity<String> createComments() {
-		comments.add("Nice Movie");
-		comments.add("Send Nudes");
-		return ResponseEntity.ok("you did it!");
+	@RequestMapping(value = "/addLiked/{name}")
+	public ResponseEntity<String> addToLiked(@PathVariable String name) {
+		likedList.add(name);
+		return ResponseEntity.ok("added: " + name);
 	}
 
-	@RequestMapping(value = "/users/{id}")
-	public ResponseEntity<String> createComment(@PathVariable String id) {
-		comments.add(id);
-		return ResponseEntity.ok("succesful");
+	@RequestMapping(value = "/isMatch/{name}")
+	public ResponseEntity<String> isMatch(@PathVariable String name) {
+		if (likedList.contains(name)) {
+			return ResponseEntity.ok("true");
+		}
+		return ResponseEntity.ok("false");
+
 	}
-	
+
 
 	public class Tuple<X, Y> {
 		public final X x;
