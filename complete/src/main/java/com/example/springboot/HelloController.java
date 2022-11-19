@@ -34,7 +34,6 @@ public class HelloController {
 	public ResponseEntity<String> createComments() {
 		comments.add("Nice Movie");
 		comments.add("Send Nudes");
-		comments.add("I have commited several war crimes");
 		return ResponseEntity.ok("you did it!");
 	}
 
